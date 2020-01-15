@@ -2,7 +2,7 @@ package com.knoldus.api.app
 
 import akka.actor.ActorRef
 import com.knoldus.api.api.ProcessorService
-import com.knoldus.api.impl.{ProcessorActorShard, ProcessorServiceImpl, SerializationRegistry}
+import com.knoldus.api.impl.{ ProcessorActorShard, ProcessorServiceImpl, SerializationRegistry }
 import com.knoldus.api.subscriber.KafkaSubscriber
 import com.knoldus.external.ExternalService
 import com.lightbend.lagom.scaladsl.api.Descriptor
@@ -14,7 +14,6 @@ import com.lightbend.lagom.scaladsl.server._
 import com.softwaremill.macwire.wire
 import play.api.libs.ws.ahc.AhcWSComponents
 import scala.concurrent.ExecutionContext
-
 
 trait ProcessorApplicationComponents extends LagomServerComponents with CassandraPersistenceComponents {
 
@@ -28,9 +27,9 @@ trait ProcessorApplicationComponents extends LagomServerComponents with Cassandr
 
 abstract class LagomProcessorApplication(context: LagomApplicationContext)
   extends LagomApplication(context)
-    with ProcessorApplicationComponents
-    with AhcWSComponents
-    with LagomKafkaComponents {
+  with ProcessorApplicationComponents
+  with AhcWSComponents
+  with LagomKafkaComponents {
 
   lazy val nimbleExternalService: ExternalService = serviceClient.implement[ExternalService]
 

@@ -13,3 +13,9 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1")
 
 // Static code analysis tools
 addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "1.0.0")
+
+// Scala Format tool
+addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.8.3")
+
+// Code Squad tool
+addSbtPlugin("io.github.knoldus" %% "codesquad-sbt-plugin" % "0.2.1")

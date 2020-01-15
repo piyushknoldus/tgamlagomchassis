@@ -1,11 +1,10 @@
 package com.knoldus.api.impl
 
-import akka.actor.{Actor, ActorRef, ActorSystem, Props}
-import akka.cluster.sharding.{ClusterSharding, ClusterShardingSettings, ShardRegion}
+import akka.actor.{ Actor, ActorRef, ActorSystem, Props }
+import akka.cluster.sharding.{ ClusterSharding, ClusterShardingSettings, ShardRegion }
 import com.knoldus.api.helpers.ConfigHelper
-import com.knoldus.api.impl.ProcessorActor.{Command, ProcessUserMessage}
+import com.knoldus.api.impl.ProcessorActor.{ Command, ProcessUserMessage }
 import com.knoldus.external.UserMessage
-
 
 class ProcessorActor extends Actor {
 
@@ -46,7 +45,6 @@ object ProcessorActor {
   case class ProcessUserMessage(id: String, message: UserMessage) extends Command
 
 }
-
 
 object ProcessorActorShard {
 

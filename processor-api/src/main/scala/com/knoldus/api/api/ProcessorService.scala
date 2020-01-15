@@ -1,9 +1,9 @@
 package com.knoldus.api.api
 
 import akka.NotUsed
-import com.lightbend.lagom.scaladsl.api.{Descriptor, Service, ServiceCall}
+import com.lightbend.lagom.scaladsl.api.{ Descriptor, Service, ServiceCall }
 
-trait ProcessorService extends Service{
+trait ProcessorService extends Service {
 
   def getTopicMessage(topicName: String): ServiceCall[NotUsed, String]
 

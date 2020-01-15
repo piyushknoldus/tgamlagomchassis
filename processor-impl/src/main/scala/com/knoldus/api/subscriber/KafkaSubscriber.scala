@@ -7,9 +7,9 @@ import akka.actor.ActorRef
 import akka.pattern.ask
 import akka.stream.scaladsl.Flow
 import akka.util.Timeout
-import akka.{Done, NotUsed}
+import akka.{ Done, NotUsed }
 import com.knoldus.api.impl.ProcessorActor.ProcessUserMessage
-import com.knoldus.external.{ExternalService, KafkaMessageWithMetadata, UserMessage}
+import com.knoldus.external.{ ExternalService, KafkaMessageWithMetadata, UserMessage }
 import com.lightbend.lagom.scaladsl.api.broker.Message
 import com.lightbend.lagom.scaladsl.broker.kafka.KafkaMetadataKeys
 
@@ -18,28 +18,27 @@ import scala.concurrent.duration._
 import scala.util.Try
 
 class KafkaSubscriber(
-                       externalService: ExternalService,
-                       actorRef: ActorRef
-                     ) extends FlowHelper {
+    externalService: ExternalService,
+    actorRef: ActorRef
+) extends FlowHelper {
 
   override val processorActorRef: ActorRef = actorRef
 
   // Can be dynamic by fetching value from configuration
   val consumerGroup = "consumer-group"
 
-
   implicit val timeout = akka.util.Timeout(5, TimeUnit.SECONDS)
 
   /**
-    * Start consuming messages from the kafka topic
-    * Where inbound topic is the topic from where we need to consume messages
-    * subscribe is used to obtain a subscriber to this topic
-    * withGroupId returns A copy of this subscriber with the passed group id
-    * withMetadata returns this subscriber, but message payloads are wrapped in [[Message]] instances to allow
-    * --- accessing any metadata associated with the message.
-    * atLeastOnce : Applies the passed `flow` to the messages processed by this subscriber. Messages are delivered to the passed
-    * * `flow` at least once.
-    */
+   * Start consuming messages from the kafka topic
+   * Where inbound topic is the topic from where we need to consume messages
+   * subscribe is used to obtain a subscriber to this topic
+   * withGroupId returns A copy of this subscriber with the passed group id
+   * withMetadata returns this subscriber, but message payloads are wrapped in [[Message]] instances to allow
+   * --- accessing any metadata associated with the message.
+   * atLeastOnce : Applies the passed `flow` to the messages processed by this subscriber. Messages are delivered to the passed
+   * * `flow` at least once.
+   */
   externalService.inboundTopic.subscribe.withGroupId(consumerGroup).withMetadata.atLeastOnce {
     kafkaMessageFlow
   }

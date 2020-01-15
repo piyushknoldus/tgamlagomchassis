@@ -4,3 +4,9 @@
 *.log
 .idea
 target
+modules/**/project
+project/project
+project/target
+
+# Scoverage report, which is copied out of target directory for preservation across 'clean'
+**/scoverage-report

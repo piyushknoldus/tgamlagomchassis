@@ -1,7 +1,7 @@
 package com.knoldus.external
 
 import com.lightbend.lagom.scaladsl.api.broker.Topic
-import com.lightbend.lagom.scaladsl.api.{Descriptor, Service}
+import com.lightbend.lagom.scaladsl.api.{ Descriptor, Service }
 import com.lightbend.lagom.scaladsl.api.Service.{ named, topic }
 
 trait ExternalService extends Service {
@@ -10,9 +10,9 @@ trait ExternalService extends Service {
 
   final override def descriptor: Descriptor = {
     named("external-service")
-    .withTopics(
-    topic("external-messages-1", this.inboundTopic)
-    ).withAutoAcl(true)
+      .withTopics(
+        topic("external-messages-1", this.inboundTopic)
+      ).withAutoAcl(true)
   }
 
 }

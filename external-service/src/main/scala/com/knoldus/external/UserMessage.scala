@@ -1,14 +1,13 @@
 package com.knoldus.external
 
-
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{ Format, Json }
 
 case class UserMessage(
-                        id: Long,
-                        name: String,
-                        date: String,
-                        message: String
-                      )
+    id: Long,
+    name: String,
+    date: String,
+    message: String
+)
 
 object UserMessage {
 
@@ -17,6 +16,6 @@ object UserMessage {
 }
 
 case class KafkaMessageWithMetadata(
-                                     userMessage: UserMessage,
-                                     inboundKafkaTimestamp: Option[Long]
-                                   )
+    userMessage: UserMessage,
+    inboundKafkaTimestamp: Option[Long]
+)

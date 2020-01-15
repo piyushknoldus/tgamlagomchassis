@@ -7,7 +7,7 @@ import com.lightbend.lagom.scaladsl.server.ServerServiceCall
 
 import scala.concurrent.Future
 
-class ProcessorServiceImpl extends ProcessorService{
+class ProcessorServiceImpl extends ProcessorService {
 
   override def getTopicMessage(topicName: String): ServiceCall[NotUsed, String] = ServerServiceCall { _ =>
     Future.successful("data...")

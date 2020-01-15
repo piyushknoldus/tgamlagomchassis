@@ -1,6 +1,6 @@
 package com.knoldus.api.helpers
 
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.{ Config, ConfigFactory }
 import com.knoldus.api.helpers.Constants._
 
 object ConfigHelper {
