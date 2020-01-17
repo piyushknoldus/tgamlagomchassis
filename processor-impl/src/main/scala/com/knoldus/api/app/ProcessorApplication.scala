@@ -12,7 +12,11 @@ import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceCo
 import com.lightbend.lagom.scaladsl.playjson.JsonSerializerRegistry
 import com.lightbend.lagom.scaladsl.server._
 import com.softwaremill.macwire.wire
+import kamon.Kamon
 import play.api.libs.ws.ahc.AhcWSComponents
+import kamon.prometheus.PrometheusReporter
+import kamon.metric._
+
 import scala.concurrent.ExecutionContext
 
 trait ProcessorApplicationComponents extends LagomServerComponents with CassandraPersistenceComponents {
@@ -39,6 +43,9 @@ abstract class LagomProcessorApplication(context: LagomApplicationContext)
 }
 
 class ProcessorApplication extends LagomApplicationLoader {
+  val counter: Counter = Kamon.counter("app.orders")
+  Kamon.addReporter(new PrometheusReporter())
+  counter.increment()
   override def load(context: LagomApplicationContext): LagomApplication =
     new LagomProcessorApplication(context) with LagomDevModeComponents
 

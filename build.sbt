@@ -38,8 +38,9 @@ lazy val `processor-impl` = (project in file("processor-impl"))
       lagomScaladslPersistenceCassandra,
       lagomScaladslKafkaBroker,
       lagomScaladslTestKit,
-      macwire
-    )
+      macwire,
+      Dependencies.logging
+    ) ++ Dependencies.monitoringDependencies
   )
   .settings(lagomForkedTestSettings: _*)
   .dependsOn(`processor-api`)
