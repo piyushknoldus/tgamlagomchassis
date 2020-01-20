@@ -1,4 +1,4 @@
-package com.knoldus.api.impl
+package com.knoldus.impl
 
 import com.knoldus.external.UserMessage
 import com.lightbend.lagom.scaladsl.playjson.{ JsonSerializer, JsonSerializerRegistry }

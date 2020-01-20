@@ -1,4 +1,4 @@
-package com.knoldus.api.api
+package com.knoldus.api
 
 import akka.NotUsed
 import com.lightbend.lagom.scaladsl.api.{ Descriptor, Service, ServiceCall }

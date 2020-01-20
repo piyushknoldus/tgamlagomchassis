@@ -1,10 +1,14 @@
-package com.knoldus.api.app
+package com.knoldus.app
 
 import akka.actor.ActorRef
-import com.knoldus.api.api.ProcessorService
-import com.knoldus.api.impl.{ ProcessorActorShard, ProcessorServiceImpl, SerializationRegistry }
-import com.knoldus.api.subscriber.KafkaSubscriber
+import com.knoldus.api.ProcessorService
+import com.knoldus.api.ProcessorService
+import com.knoldus.impl.{ ProcessorActorShard, ProcessorServiceImpl, SerializationRegistry }
+import com.knoldus.subscriber.KafkaSubscriber
 import com.knoldus.external.ExternalService
+import com.knoldus.impl.{ ProcessorActorShard, ProcessorServiceImpl, SerializationRegistry }
+import com.knoldus.kamon.KamonFactory
+import com.knoldus.subscriber.KafkaSubscriber
 import com.lightbend.lagom.scaladsl.api.Descriptor
 import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
@@ -42,10 +46,9 @@ abstract class LagomProcessorApplication(context: LagomApplicationContext)
   wire[KafkaSubscriber]
 }
 
-class ProcessorApplication extends LagomApplicationLoader {
-  val counter: Counter = Kamon.counter("app.orders")
+class ProcessorApplication extends LagomApplicationLoader /*with KamonFactory*/ {
   Kamon.addReporter(new PrometheusReporter())
-  counter.increment()
+  //  counter.increment()
   override def load(context: LagomApplicationContext): LagomApplication =
     new LagomProcessorApplication(context) with LagomDevModeComponents
 

@@ -26,6 +26,7 @@ lazy val `external-Service` = (project in file("external-service"))
     )
   )
 
+
 lagomCassandraEnabled in ThisBuild := false
 lagomKafkaEnabled in ThisBuild := false
 lagomCassandraPort in ThisBuild := 9042

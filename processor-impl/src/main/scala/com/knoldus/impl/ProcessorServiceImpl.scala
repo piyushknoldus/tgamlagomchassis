@@ -1,7 +1,7 @@
-package com.knoldus.api.impl
+package com.knoldus.impl
 
 import akka.NotUsed
-import com.knoldus.api.api.ProcessorService
+import com.knoldus.api.ProcessorService
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.server.ServerServiceCall
 

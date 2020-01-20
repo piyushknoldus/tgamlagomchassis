@@ -1,4 +1,4 @@
-package com.knoldus.api.helpers
+package com.knoldus.helpers
 
 object Constants {
 

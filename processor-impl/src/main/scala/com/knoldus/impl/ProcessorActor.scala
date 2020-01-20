@@ -1,19 +1,20 @@
-package com.knoldus.api.impl
+package com.knoldus.impl
 
 import akka.actor.{ Actor, ActorRef, ActorSystem, Props }
 import akka.cluster.sharding.{ ClusterSharding, ClusterShardingSettings, ShardRegion }
-import com.knoldus.api.helpers.ConfigHelper
-import com.knoldus.api.impl.ProcessorActor.{ Command, ProcessUserMessage }
+import com.knoldus.impl.ProcessorActor.{ Command, ProcessUserMessage }
 import com.knoldus.external.UserMessage
+import com.knoldus.helpers.ConfigHelper
 
 class ProcessorActor extends Actor {
 
   override def receive: Receive = {
+
     case msg: Command => msg match {
       case pum: ProcessUserMessage =>
-        println("Message found by actor : " + pum)
+        print("\nMessage found by actor : " + pum)
 
-      case msg => println(s"Got unknown message : $msg")
+      case msg => print(s"\nGot unknown message : $msg")
     }
 
   }

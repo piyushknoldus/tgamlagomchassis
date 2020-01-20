@@ -1,4 +1,4 @@
-package com.knoldus.api.subscriber
+package com.knoldus.subscriber
 
 import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
@@ -8,8 +8,9 @@ import akka.pattern.ask
 import akka.stream.scaladsl.Flow
 import akka.util.Timeout
 import akka.{ Done, NotUsed }
-import com.knoldus.api.impl.ProcessorActor.ProcessUserMessage
+import com.knoldus.impl.ProcessorActor.ProcessUserMessage
 import com.knoldus.external.{ ExternalService, KafkaMessageWithMetadata, UserMessage }
+import com.knoldus.kamon.KamonFactory
 import com.lightbend.lagom.scaladsl.api.broker.Message
 import com.lightbend.lagom.scaladsl.broker.kafka.KafkaMetadataKeys
 
@@ -45,7 +46,7 @@ class KafkaSubscriber(
 
 }
 
-trait FlowHelper {
+trait FlowHelper extends KamonFactory {
 
   implicit val timeOut: Timeout = Timeout(5000.milli)
   val processorActorRef: ActorRef
@@ -60,14 +61,16 @@ trait FlowHelper {
         .map(_ => Done)
         .recover {
           case ex: Exception =>
-            println("Exception found while waiting for processor response: " + ex)
+            print("\nException found while waiting for processor response: " + ex)
             Done
         }
     }
 
   val processKafkaMessageFlow: Flow[KafkaMessageWithMetadata, Done, NotUsed] = Flow[KafkaMessageWithMetadata]
     .map(kafkaMessageWithMetadata => {
-      println(s"Processing kafka message: $kafkaMessageWithMetadata")
+      counter.increment()
+      print("\n\nafter counter\n\n\n\n")
+      print(s"\nProcessing kafka message: $kafkaMessageWithMetadata")
       kafkaMessageWithMetadata
     })
     .via(forwardKafkaMessageToWorker)
@@ -82,7 +85,7 @@ trait FlowHelper {
       val kafkaTimestamp = msg.get(KafkaMetadataKeys.Timestamp)
 
       val kafkaMessageWithMetadata: KafkaMessageWithMetadata = KafkaMessageWithMetadata(msg.payload, inboundKafkaTimestamp = kafkaTimestamp)
-      println(s"Inbound Kafka message arrived: Message: [$kafkaMessageWithMetadata] Key: [$messageKey] Headers: [$kafkaHeaders]," +
+      print(s"\nInbound Kafka message arrived: Message: [$kafkaMessageWithMetadata] Key: [$messageKey] Headers: [$kafkaHeaders]," +
         s" partition: [$partition], offset: [$offset], inboundKafkaTimestamp: $kafkaTimestamp at: ${LocalDateTime.now}")
 
       kafkaMessageWithMetadata
